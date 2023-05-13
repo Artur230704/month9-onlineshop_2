@@ -22,7 +22,7 @@ public class ShoppingCart {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User customer;
+    private User user;
 
     @OneToMany(mappedBy = "shoppingCart")
     private Set<ShoppingCartItem> shopCartItems;

@@ -38,12 +38,12 @@ CREATE TABLE reviews (
     date TIMESTAMP NOT NULL
 );
 
-create table shopping_carts (
+CREATE TABLE shopping_carts (
     shopping_cart_id bigserial PRIMARY KEY NOT NULL,
     user_id bigint REFERENCES users(id)
 );
 
-create table shopping_cart_items (
+CREATE TABLE shopping_cart_items (
     shopping_cart_items_id bigserial PRIMARY KEY NOT NULL,
     shopping_cart_id bigint REFERENCES shopping_carts(shopping_cart_id),
     product_id bigint REFERENCES products(id)
