@@ -1,7 +1,9 @@
 package com.example.mont9onlineshop.services;
 
-import com.example.mont9onlineshop.DTO.user.CustomerRegisterDTO;
+import com.example.mont9onlineshop.DTO.customer.CustomerDTO;
+import com.example.mont9onlineshop.DTO.customer.CustomerRegisterDTO;
 import com.example.mont9onlineshop.entities.Customer;
+import com.example.mont9onlineshop.mappers.CustomerMapper;
 import com.example.mont9onlineshop.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +12,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +38,7 @@ public class CustomerService implements UserDetailsService {
         if (customer != null) {
             return false;
         }
+
         customer = Customer.builder()
                 .username(user.getUsername())
                 .email(user.getEmail())
@@ -44,5 +49,35 @@ public class CustomerService implements UserDetailsService {
 
         customerRepository.save(customer);
         return true;
+    }
+
+
+    public List<CustomerDTO> findAll(){
+        return customerRepository.findAll().stream()
+                .map(CustomerMapper::fromCustomer)
+                .collect(Collectors.toList());
+    }
+
+    public List<CustomerDTO> findByName(String username){
+        List<Customer> customers = customerRepository.findByUsernameIsContainingIgnoreCase(username);
+        if (customers == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        return customers.stream()
+                .map(CustomerMapper::fromCustomer)
+                .collect(Collectors.toList());
+    }
+
+    public CustomerDTO findByEmail(String email){
+        Customer customer = customerRepository.findByEmail(email);
+        if (customer == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return CustomerMapper.fromCustomer(customer);
+    }
+
+    public Boolean existsByEmail(String email){
+        return customerRepository.existsByEmail(email);
     }
 }

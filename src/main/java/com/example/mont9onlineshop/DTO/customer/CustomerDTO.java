@@ -1,4 +1,4 @@
-package com.example.mont9onlineshop.DTO.user;
+package com.example.mont9onlineshop.DTO.customer;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
