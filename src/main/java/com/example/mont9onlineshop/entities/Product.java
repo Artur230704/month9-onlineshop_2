@@ -21,7 +21,7 @@ public class Product {
     private String name;
 
     @Column
-    private String imageURL;
+    private String image;
 
     @Column
     private String description;
