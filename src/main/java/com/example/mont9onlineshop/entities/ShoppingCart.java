@@ -21,8 +21,8 @@ public class ShoppingCart {
     private Long shopCartId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
     @OneToMany(mappedBy = "shoppingCart")
     private Set<ShoppingCartItem> shopCartItems;

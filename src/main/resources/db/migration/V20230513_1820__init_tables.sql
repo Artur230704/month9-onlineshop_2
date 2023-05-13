@@ -1,4 +1,4 @@
-CREATE TABLE users (
+CREATE TABLE customers (
     id BIGSERIAL PRIMARY KEY ,
     username VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE users (
 
 CREATE TABLE orders (
     id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT REFERENCES users(id),
+    customer_id BIGINT REFERENCES customers(id),
     address VARCHAR(255),
     bill DOUBLE PRECISION NOT NULL,
     date TIMESTAMP NOT NULL
@@ -32,7 +32,7 @@ CREATE TABLE products (
 
 CREATE TABLE reviews (
     id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT REFERENCES users(id),
+    customer_id BIGINT REFERENCES customers(id),
     text TEXT NOT NULL,
     product_id BIGINT REFERENCES products(id),
     date TIMESTAMP NOT NULL
@@ -40,7 +40,7 @@ CREATE TABLE reviews (
 
 CREATE TABLE shopping_carts (
     shopping_cart_id bigserial PRIMARY KEY NOT NULL,
-    user_id bigint REFERENCES users(id)
+    customer_id bigint REFERENCES customers(id)
 );
 
 CREATE TABLE shopping_cart_items (
