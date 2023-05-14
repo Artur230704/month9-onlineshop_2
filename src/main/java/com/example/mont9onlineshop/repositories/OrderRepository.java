@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    @Query("SELECT o FROM Order o WHERE o.customer.email = :email")
-    List<Order> findAllByUserEmail(String email);
+    @Query("SELECT o FROM Order AS o WHERE o.customer.email = :email")
+    List<Order> findCustomerOrders(String email);
 }

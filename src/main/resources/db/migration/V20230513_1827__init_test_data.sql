@@ -35,6 +35,6 @@ INSERT INTO order_product (order_id, product_id, quantity)
 VALUES (1,1,1),
        (2,2,1),
        (3,3,1),
-       (1,4,1),
-       (2,7,1),
-       (3,17,1);
+       (4,4,1),
+       (5,7,1),
+       (6,17,1);

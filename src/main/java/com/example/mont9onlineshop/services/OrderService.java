@@ -15,7 +15,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
 
     public List<OrderDTO> findCustomerOrders(String email){
-        return orderRepository.findAllByUserEmail(email).stream()
+        return orderRepository.findCustomerOrders(email).stream()
                 .map(OrderMapper::fromOrder)
                 .collect(Collectors.toList());
     }

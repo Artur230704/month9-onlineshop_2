@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +16,7 @@ public class OrderDTO {
     private Long id;
     private String customer;
     private String email;
-    private List<String> products;
+    private Map<String,Integer> products;
     private String address;
     private double bill;
     private LocalDateTime date;
