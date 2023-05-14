@@ -16,8 +16,8 @@ import javax.persistence.*;
 public class ShoppingCartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "shopping_cart_items_id")
-    private Long shopCartItemId;
+    @Column(name = "id")
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name="shopping_cart_id")

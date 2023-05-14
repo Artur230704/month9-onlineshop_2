@@ -31,10 +31,10 @@ VALUES (1,1),
        (2,8),
        (2,11);
 
-INSERT INTO order_product (order_id, product_id)
-VALUES (1,1),
-       (2,2),
-       (3,3),
-       (1,4),
-       (2,7),
-       (3,17);
+INSERT INTO order_product (order_id, product_id, quantity)
+VALUES (1,1,1),
+       (2,2,1),
+       (3,3,1),
+       (1,4,1),
+       (2,7,1),
+       (3,17,1);

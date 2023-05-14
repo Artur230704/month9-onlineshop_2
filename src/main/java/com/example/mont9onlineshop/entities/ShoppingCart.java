@@ -17,8 +17,8 @@ import java.util.Set;
 public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "shopping_cart_id")
-    private Long shopCartId;
+    @Column(name = "id")
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

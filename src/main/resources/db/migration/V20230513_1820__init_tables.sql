@@ -39,18 +39,19 @@ CREATE TABLE reviews (
 );
 
 CREATE TABLE shopping_carts (
-    shopping_cart_id bigserial PRIMARY KEY NOT NULL,
+    id bigserial PRIMARY KEY NOT NULL,
     customer_id bigint REFERENCES customers(id)
 );
 
 CREATE TABLE shopping_cart_items (
-    shopping_cart_items_id bigserial PRIMARY KEY NOT NULL,
-    shopping_cart_id bigint REFERENCES shopping_carts(shopping_cart_id),
+    id bigserial PRIMARY KEY NOT NULL,
+    shopping_cart_id bigint REFERENCES shopping_carts(id),
     product_id bigint REFERENCES products(id)
 );
 
 CREATE TABLE order_product (
     id BIGSERIAL PRIMARY KEY,
     order_id BIGINT REFERENCES orders(id),
-    product_id BIGINT REFERENCES products(id)
+    product_id BIGINT REFERENCES products(id),
+    quantity INTEGER
 );
