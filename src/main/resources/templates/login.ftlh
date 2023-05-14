@@ -10,7 +10,7 @@
 <body>
 <div class="login-page">
     <div class="form">
-        <form class="login-form" method="POST">
+        <form class="login-form" method="POST" action="/login">
             <input type="text" placeholder="email" name="email"/>
             <input type="password" placeholder="password" name="password"/>
             <button>login</button>
@@ -19,6 +19,6 @@
     </div>
 </div>
 
-<script src="/js/login.js"></script>
+<#--<script src="/js/login.js"></script>-->
 </body>
 </html>

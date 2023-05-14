@@ -4,7 +4,6 @@ import com.example.mont9onlineshop.DTO.customer.CustomerDTO;
 import com.example.mont9onlineshop.DTO.customer.CustomerRegisterDTO;
 import com.example.mont9onlineshop.services.CustomerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,6 +21,16 @@ import java.util.List;
 public class CustomerController {
     private final CustomerService customerService;
 
+    @GetMapping(value = "/admin")
+    public ResponseEntity<String> getAdminPage(){
+        return new ResponseEntity<>("Hello admin", HttpStatus.OK);
+    }
+
+    @GetMapping("/login")
+    public String getLoginPage(){
+        return "login";
+    }
+
     @GetMapping("/signup")
     public String getRegistrationPage(Model model){
         model.addAttribute("message", "");
@@ -29,7 +38,7 @@ public class CustomerController {
     }
 
     @PostMapping(value = "/signup")
-    public HttpEntity<Boolean> register(@Valid @RequestBody CustomerRegisterDTO customer){
+    public ResponseEntity<Boolean> register(@Valid @RequestBody CustomerRegisterDTO customer){
         return new ResponseEntity<>(customerService.register(customer), HttpStatus.OK);
     }
 

@@ -43,11 +43,6 @@ public class Customer implements UserDetails {
         return List.of(new SimpleGrantedAuthority("user"));
     }
 
-//    @Override
-//    public String getUsername() {
-//        return email;
-//    }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;

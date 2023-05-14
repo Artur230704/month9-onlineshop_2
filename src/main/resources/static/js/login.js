@@ -36,11 +36,12 @@ loginForm.addEventListener('submit', function(event) {
     const formData = new FormData(form);
     const user = Object.fromEntries(formData);
     saveUser(user);
-    window.location.href = '/'
+    // window.location.href = '/'
 
     // fetchAuthorized('/login')
     //     .then(() => window.location.href = '/')
     //     .catch(() => {
     //         window.location.href = '/signup'
     //     });
+
 });

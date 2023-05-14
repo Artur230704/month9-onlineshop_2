@@ -5,7 +5,7 @@ import com.example.mont9onlineshop.DTO.customer.CustomerRegisterDTO;
 import com.example.mont9onlineshop.entities.Customer;
 import com.example.mont9onlineshop.mappers.CustomerMapper;
 import com.example.mont9onlineshop.repositories.CustomerRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,11 +17,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class CustomerService implements UserDetailsService {
+    @Autowired
+    private CustomerRepository customerRepository;
 
-    private final CustomerRepository customerRepository;
-    private final PasswordEncoder encoder;
+    @Autowired
+    private PasswordEncoder encoder;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
