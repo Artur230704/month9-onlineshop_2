@@ -32,6 +32,7 @@
                     <option value="name">Name</option>
                     <option value="category">Category</option>
                     <option value="price">Price</option>
+                    <option value="description">Description</option>
                 </select>
                 <select id="category" class="form-select ps-4 pe-5 me-2" name="category" aria-label="Select a category" hidden>
                     <option value="monitor">Monitors</option>

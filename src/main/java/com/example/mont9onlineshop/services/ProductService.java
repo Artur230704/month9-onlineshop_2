@@ -45,6 +45,12 @@ public class ProductService {
                 .map(ProductMapper::fromProduct);
     }
 
+    public Page<ProductDTO> findAllByDescription(String description, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.findAllByDescriptionContainingIgnoreCase(description, pageable)
+                .map(ProductMapper::fromProduct);
+    }
+
     public List<ReviewDTO> findAllComments(String productName){
         return reviewRepository.findReviewsByProductName(productName).stream()
                 .map(ReviewMapper::fromReview)

@@ -51,6 +51,13 @@ public class ProductController {
         return new ResponseEntity<>(productService.findAllByPrice(price, page, size), HttpStatus.OK);
     }
 
+    @GetMapping("/api/products/description/{description}")
+    public ResponseEntity<Page<ProductDTO>> findAllByDescription(@PathVariable String description,
+                                                           @RequestParam(name = "page", defaultValue = "0") int page,
+                                                           @RequestParam(name = "size", defaultValue = "8") int size) {
+        return new ResponseEntity<>(productService.findAllByDescription(description, page, size), HttpStatus.OK);
+    }
+
     @GetMapping("/api/products/review/{productName}")
     public ResponseEntity<List<ReviewDTO>> findAllComments(@PathVariable String productName){
         return new ResponseEntity<>(productService.findAllComments(productName),HttpStatus.OK);
