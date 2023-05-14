@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,5 +25,5 @@ public class ShoppingCart {
     private Customer customer;
 
     @OneToMany(mappedBy = "shoppingCart")
-    private Set<ShoppingCartItem> shopCartItems;
+    private List<ShoppingCartItem> shopCartItems;
 }
