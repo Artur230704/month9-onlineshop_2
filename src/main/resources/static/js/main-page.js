@@ -1,5 +1,5 @@
 let page = 0;
-let defaultSearchSize = 8;
+// let defaultSearchSize = 2;
 let totalPages;
 let currentPage = document.querySelector('.current-page');
 
@@ -15,9 +15,10 @@ let nextButton = document.querySelector('.next');
 let prevButton = document.querySelector('.prev');
 
 displayProducts(productsEndPoint);
+let currentEndPoint = productsEndPoint;
 
 function displayProducts(url){
-    fetch(`${url}?page=${page}&size=${defaultSearchSize}`)
+    fetch(`${url}?page=${page}`)
         .then(response => response.json())
         .then(page => {
             document.querySelector('.products-block').innerHTML = '';
@@ -77,33 +78,32 @@ searchType.addEventListener('change', (event) => {
 form.addEventListener('submit', event => {
     event.preventDefault();
     const searchType = document.getElementById('search-type').value;
-    let url;
     page = 0;
 
     if (searchType === 'category') {
         const category = document.getElementById('category').value;
-        url = `/api/products/category/${category}`;
+        currentEndPoint = `/api/products/category/${category}`;
     } else if(searchType === 'all') {
-        url = productsEndPoint;
+        currentEndPoint = productsEndPoint;
     } else {
         const searchTerm = document.getElementById('search-term').value;
-        url = `/api/products/${searchType}/${searchTerm}`;
+        currentEndPoint = `/api/products/${searchType}/${searchTerm}`;
     }
-    displayProducts(url);
+    displayProducts(currentEndPoint);
 });
 
 
 nextButton.addEventListener('click', () => {
     if (page < totalPages - 1) {
         page++;
-        displayProducts(productsEndPoint);
+        displayProducts(currentEndPoint);
     }
 });
 
 prevButton.addEventListener('click', () => {
     if (page > 0) {
         page--;
-        displayProducts(productsEndPoint);
+        displayProducts(currentEndPoint);
     }
 });
 
