@@ -35,21 +35,23 @@ public class OrderService {
     }
 
     @Transactional
-    public boolean makeOrder(OrderAddingDTO orderDTO) {
+    public boolean makeOrder(OrderAddingDTO orderDTO, String email) {
         Order order = new Order();
-        Customer customer = customerRepository.findByEmail(orderDTO.getEmail()).get();
-        if (customer == null){
-            throw new IllegalArgumentException("Customer not found");
-        }
+        Customer customer = customerRepository.findByEmail(email).get();
+
         order.setCustomer(customer);
         order.setAddress(orderDTO.getAddress());
+
+
         List<OrderItem> orderItems = new ArrayList<>();
         for (OrderItemDTO orderItemDTO : orderDTO.getOrderItems()) {
             Product product = productRepository.findById(orderItemDTO.getProductId())
                     .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+
             if (product.getQuantity() < orderItemDTO.getQuantity()) {
                 throw new IllegalArgumentException("Insufficient product quantity");
             }
+
             OrderItem orderItem = new OrderItem();
             orderItem.setProduct(product);
             orderItem.setQuantity(orderItemDTO.getQuantity());
@@ -59,6 +61,7 @@ public class OrderService {
             product.setQuantity(product.getQuantity() - orderItem.getQuantity());
             orderItemRepository.save(orderItem);
         }
+
         order.setOrderItems(orderItems);
         double bill = orderItems.stream()
                 .mapToDouble(orderItem -> orderItem.getProduct().getPrice() * orderItem.getQuantity())
@@ -66,6 +69,7 @@ public class OrderService {
         order.setBill(bill);
         order.setDate(LocalDateTime.now());
         orderRepository.save(order);
+
         return true;
     }
 }

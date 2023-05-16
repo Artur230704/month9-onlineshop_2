@@ -8,11 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -20,13 +20,16 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
 
-    @GetMapping("/api/orders/{email}")
-    public ResponseEntity<List<OrderDTO>> findCustomerOrders(@PathVariable String email){
+    @GetMapping("/api/orders")
+    public ResponseEntity<List<OrderDTO>> findCustomerOrders(Principal principal){
+        String email = principal.getName();
         return new ResponseEntity<>(orderService.findCustomerOrders(email),HttpStatus.OK);
     }
 
     @PostMapping("/api/orders/add")
-    public ResponseEntity<Boolean> makeOrder(@Valid @RequestBody OrderAddingDTO orderAddingDTO){
-        return new ResponseEntity<>(orderService.makeOrder(orderAddingDTO), HttpStatus.OK);
+    public ResponseEntity<Boolean> makeOrder(@Valid @RequestBody OrderAddingDTO orderAddingDTO,
+                                             Principal principal){
+        String email = principal.getName();
+        return new ResponseEntity<>(orderService.makeOrder(orderAddingDTO, email), HttpStatus.OK);
     }
 }

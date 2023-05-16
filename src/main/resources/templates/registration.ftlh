@@ -12,6 +12,7 @@
 
     <div class="form">
         <form class="register-form" method="POST" action="/signup" >
+            <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <div>
                 <#if errorMessage?has_content>
                     <p class="error-message" style="color:red">${errorMessage}</p>

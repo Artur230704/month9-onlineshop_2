@@ -17,6 +17,7 @@
         </div>
 
         <form class="login-form" method="POST" action="/login">
+            <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <input type="text" placeholder="email" name="username" value=""/>
             <input type="text" placeholder="password" name="password" value=""/>
             <button>login</button>

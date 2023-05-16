@@ -14,8 +14,6 @@ import java.util.List;
 @Data
 @Builder
 public class OrderAddingDTO {
-    @NotNull(message = "Customer cannot be null")
-    private String email;
 
     @NotNull(message = "Address cannot be null")
     private String address;
