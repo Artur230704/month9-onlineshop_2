@@ -10,15 +10,19 @@
 <body>
 <div class="login-page">
     <div class="form">
+        <div>
+            <#if error!false >
+                <p style="color:red">Invalid username or password !</p>
+            </#if>
+        </div>
+
         <form class="login-form" method="POST" action="/login">
-            <input type="text" placeholder="email" name="email"/>
-            <input type="password" placeholder="password" name="password"/>
+            <input type="text" placeholder="email" name="username" value=""/>
+            <input type="text" placeholder="password" name="password" value=""/>
             <button>login</button>
             <p class="message">Not registered? <a href="/signup">Create an account</a></p>
         </form>
     </div>
 </div>
-
-<#--<script src="/js/login.js"></script>-->
 </body>
 </html>

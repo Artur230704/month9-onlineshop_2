@@ -8,10 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -21,25 +23,31 @@ import java.util.List;
 public class CustomerController {
     private final CustomerService customerService;
 
-    @GetMapping(value = "/admin")
-    public ResponseEntity<String> getAdminPage(){
-        return new ResponseEntity<>("Hello admin", HttpStatus.OK);
-    }
-
     @GetMapping("/login")
-    public String getLoginPage(){
+    public String getLoginPage(@RequestParam(required = false, defaultValue = "false") Boolean error, Model model) {
+        model.addAttribute("error", error);
         return "login";
     }
 
     @GetMapping("/signup")
     public String getRegistrationPage(Model model){
-        model.addAttribute("message", "");
+        model.addAttribute("dto", new CustomerRegisterDTO());
         return "registration";
     }
 
     @PostMapping(value = "/signup")
-    public ResponseEntity<Boolean> register(@Valid @RequestBody CustomerRegisterDTO customer){
-        return new ResponseEntity<>(customerService.register(customer), HttpStatus.OK);
+    public String register(@Valid CustomerRegisterDTO customer,
+                           BindingResult validationResult,
+                           RedirectAttributes attributes){
+
+        if (validationResult.hasFieldErrors()) {
+            attributes.addFlashAttribute("errors", validationResult.getFieldErrors());
+            return "redirect:/signup";
+        }
+
+
+        customerService.register(customer);
+        return "redirect:/login";
     }
 
     @GetMapping(value = "/api/customers")

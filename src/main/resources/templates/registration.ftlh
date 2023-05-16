@@ -9,23 +9,31 @@
 </head>
 <body>
 <div class="registration-page">
-    <div id="errors"></div>
 
     <div class="form">
-        <form class="register-form" method="POST" enctype="multipart/form-data">
+        <form class="register-form" method="POST" action="/signup" >
+            <div>
+                <#if errorMessage?has_content>
+                    <p class="error-message" style="color:red">${errorMessage}</p>
+                </#if>
+                <#if errors?? >
+                    <p style="color:red">Incorrect input data !</p>
+                    <#list errors as fieldError>
+                        <p>${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
+                    </#list>
+                </#if>
+            </div>
             <div class="error-message"></div>
-            <input type="text" placeholder="name" name="username" required/>
+            <input type="text" placeholder="name" name="username"  value="${(dto.username)!''}" required/>
             <div class="error-message"></div>
-            <input type="text" placeholder="email address" name="email" required/>
+            <input type="text" placeholder="email address" name="email"  value="${(dto.email)!''}" required/>
             <div class="error-message"></div>
-            <input type="password" placeholder="password" name="password" required/>
+            <input type="password" placeholder="password" name="password"  value="${(dto.password)!''}" required/>
             <button>Register</button>
             <p class="message">Already registered? <a href="/login">Sign In</a></p>
         </form>
     </div>
 
 </div>
-
-<script src="/js/registration.js"></script>
 </body>
 </html>

@@ -40,7 +40,12 @@ public class Customer implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("user"));
+        return List.of(new SimpleGrantedAuthority("FULL"));
+    }
+
+    @Override
+    public String getUsername() {
+        return getEmail();
     }
 
     @Override
@@ -55,6 +60,11 @@ public class Customer implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
         return true;
     }
 

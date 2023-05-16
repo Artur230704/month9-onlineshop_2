@@ -37,7 +37,7 @@ public class OrderService {
     @Transactional
     public boolean makeOrder(OrderAddingDTO orderDTO) {
         Order order = new Order();
-        Customer customer = customerRepository.findByEmail(orderDTO.getEmail());
+        Customer customer = customerRepository.findByEmail(orderDTO.getEmail()).get();
         if (customer == null){
             throw new IllegalArgumentException("Customer not found");
         }
