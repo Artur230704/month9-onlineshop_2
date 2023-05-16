@@ -1,7 +1,7 @@
 package com.example.mont9onlineshop.services;
 
 import com.example.mont9onlineshop.DTO.shoppingCart.ShoppingCartDTO;
-import com.example.mont9onlineshop.DTO.shoppingCart.ShoppingCartItemAddingDTO;
+import com.example.mont9onlineshop.DTO.shoppingCart.ShoppingCartItemDTO;
 import com.example.mont9onlineshop.entities.Product;
 import com.example.mont9onlineshop.entities.ShoppingCart;
 import com.example.mont9onlineshop.entities.ShoppingCartItem;
@@ -29,12 +29,18 @@ public class ShoppingCartService {
                 .collect(Collectors.toList());
     }
 
-    public boolean addItemToCart(ShoppingCartItemAddingDTO itemDTO, String email) {
+    public boolean addItemToCart(ShoppingCartItemDTO itemDTO, String email) {
         Product product = productRepository.findById(itemDTO.getProductId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product ID"));
 
         ShoppingCart shoppingCart = shoppingCartRepository.findCartByCustomer(email)
                 .orElseThrow(() -> new IllegalArgumentException("User's shopping cart not found"));
+
+        boolean isProductInCart = shoppingCartItemRepository.existsByShoppingCartAndProduct(shoppingCart, product);
+
+        if (isProductInCart) {
+            return false;
+        }
 
         ShoppingCartItem shoppingCartItem = ShoppingCartItem.builder()
                 .product(product)
@@ -44,4 +50,19 @@ public class ShoppingCartService {
         shoppingCartItemRepository.save(shoppingCartItem);
         return true;
     }
+    public boolean removeItemFromCart(ShoppingCartItemDTO itemDTO, String email) {
+        Product product = productRepository.findById(itemDTO.getProductId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid product ID"));
+
+        ShoppingCart shoppingCart = shoppingCartRepository.findCartByCustomer(email)
+                .orElseThrow(() -> new IllegalArgumentException("User's shopping cart not found"));
+
+        ShoppingCartItem shoppingCartItem = shoppingCartItemRepository.findByShoppingCartAndProduct(shoppingCart, product)
+                .orElseThrow(() -> new IllegalArgumentException("Item not found in the shopping cart"));
+
+        shoppingCartItemRepository.delete(shoppingCartItem);
+        return true;
+    }
+
+
 }

@@ -1,7 +1,7 @@
 package com.example.mont9onlineshop.controllers;
 
 import com.example.mont9onlineshop.DTO.shoppingCart.ShoppingCartDTO;
-import com.example.mont9onlineshop.DTO.shoppingCart.ShoppingCartItemAddingDTO;
+import com.example.mont9onlineshop.DTO.shoppingCart.ShoppingCartItemDTO;
 import com.example.mont9onlineshop.services.ShoppingCartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,8 +27,14 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/api/carts/items/add")
-    public ResponseEntity<Boolean> addItemToCart(@Valid @RequestBody ShoppingCartItemAddingDTO dto, Principal principal){
+    public ResponseEntity<Boolean> addItemToCart(@Valid @RequestBody ShoppingCartItemDTO dto, Principal principal){
         String email = principal.getName();
         return new ResponseEntity<>(shoppingCartService.addItemToCart(dto, email),HttpStatus.OK);
+    }
+
+    @PostMapping("/api/carts/items/delete")
+    public ResponseEntity<Boolean> deleteItemFromCart(@Valid @RequestBody ShoppingCartItemDTO dto, Principal principal){
+        String email = principal.getName();
+        return new ResponseEntity<>(shoppingCartService.removeItemFromCart(dto, email),HttpStatus.OK);
     }
 }

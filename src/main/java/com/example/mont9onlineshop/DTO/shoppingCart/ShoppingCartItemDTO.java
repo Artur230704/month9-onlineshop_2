@@ -12,8 +12,8 @@ import javax.validation.constraints.Positive;
 @NoArgsConstructor
 @Data
 @Builder
-public class ShoppingCartItemAddingDTO {
-    @NotNull(message = "You need to select a product to add to the cart")
-    @Positive(message = "You cannot add a non-existent product to the cart")
+public class ShoppingCartItemDTO {
+    @NotNull(message = "You need to select a product to add/delete to the cart")
+    @Positive(message = "You cannot add/delete a non-existent product")
     private Long productId;
 }
