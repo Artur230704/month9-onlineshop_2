@@ -26,35 +26,35 @@ public class ProductController {
 
     @GetMapping("/api/products")
     public ResponseEntity<Page<ProductDTO>> findAll(@RequestParam(name = "page", defaultValue = "0") int page,
-                                                    @RequestParam(name = "size", defaultValue = "2") int size){
+                                                    @RequestParam(name = "size", defaultValue = "4") int size){
         return new ResponseEntity<>(productService.findAll(page,size), HttpStatus.OK);
     }
 
     @GetMapping("/api/products/name/{name}")
     public ResponseEntity<Page<ProductDTO>> findAllByName(@PathVariable String name,
                                                           @RequestParam(name = "page", defaultValue = "0") int page,
-                                                          @RequestParam(name = "size", defaultValue = "2") int size) {
+                                                          @RequestParam(name = "size", defaultValue = "4") int size) {
         return new ResponseEntity<>(productService.findAllByName(name, page, size), HttpStatus.OK);
     }
 
     @GetMapping("/api/products/category/{categoryName}")
     public ResponseEntity<Page<ProductDTO>> findAllByCategoryName(@PathVariable String categoryName,
                                                                   @RequestParam(name = "page", defaultValue = "0") int page,
-                                                                  @RequestParam(name = "size", defaultValue = "2") int size) {
+                                                                  @RequestParam(name = "size", defaultValue = "4") int size) {
         return new ResponseEntity<>(productService.findAllByCategoryName(categoryName, page, size), HttpStatus.OK);
     }
 
     @GetMapping("/api/products/price/{price}")
     public ResponseEntity<Page<ProductDTO>> findAllByPrice(@PathVariable double price,
                                                            @RequestParam(name = "page", defaultValue = "0") int page,
-                                                           @RequestParam(name = "size", defaultValue = "2") int size) {
+                                                           @RequestParam(name = "size", defaultValue = "4") int size) {
         return new ResponseEntity<>(productService.findAllByPrice(price, page, size), HttpStatus.OK);
     }
 
     @GetMapping("/api/products/description/{description}")
     public ResponseEntity<Page<ProductDTO>> findAllByDescription(@PathVariable String description,
                                                            @RequestParam(name = "page", defaultValue = "0") int page,
-                                                           @RequestParam(name = "size", defaultValue = "2") int size) {
+                                                           @RequestParam(name = "size", defaultValue = "4") int size) {
         return new ResponseEntity<>(productService.findAllByDescription(description, page, size), HttpStatus.OK);
     }
 

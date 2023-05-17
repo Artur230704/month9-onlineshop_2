@@ -16,7 +16,7 @@ VALUES ('AOC 23.8" LED LCD G2490VXA','files/monitor_1.jpg','1920x1080 144',1,10,
 INSERT INTO products (name, image, description, category_id, quantity, price)
 VALUES ('Intel Core i3-7100','files/processor_1.jpg','3.9GHz, 3MB Cache L3, EMT64, Tray, Skylake',2,3,6255),
        ('Intel Core i5-7500','files/processor_2.jpg','3.4-3.8GHz,6MB Cache L3,EMT64,Tray,Kabylake',2,7,8730),
-       ('Intel Core i9-13900K','files/processor_3.jpg','3.0-5.8GHz, 36MB Cache, Intel® UHD Graphics 770, Raptor Lake, 24 Cores + 32 Threads, Tray',2,10,54945);
+       ('Intel Core i9-13900K','files/processor_3.png','3.0-5.8GHz, 36MB Cache, Intel® UHD Graphics 770, Raptor Lake, 24 Cores + 32 Threads, Tray',2,10,54945);
 
 INSERT INTO products (name, image, description, category_id, quantity, price)
 VALUES ('Geil Pristine [GP44GB2666C19SC]','files/ram_1.jpg','DDR4 4GB PC-21400 (2666MHz)',3,14,1233),
@@ -24,7 +24,7 @@ VALUES ('Geil Pristine [GP44GB2666C19SC]','files/ram_1.jpg','DDR4 4GB PC-21400 (
 
 INSERT INTO products (name, image, description, category_id, quantity, price)
 VALUES ('FORESEE P900F128GH','files/ssd_1.jpg','SSD 128GB',4,1,1723),
-       ('Kingston A400','files/ssd_1.jpg','SSD 240GB, TCL 2.5',4,24,2317);
+       ('Kingston A400','files/ssd_2.jpg','SSD 240GB, TCL 2.5',4,24,2317);
 
 INSERT INTO products (name, image, description, category_id, quantity, price)
 VALUES ('Seagate BarraCuda ','files/hdd_1.jpg','5TB, 5400rpm, 128MB, SATA III',5,13,11343);
@@ -41,5 +41,5 @@ VALUES ('DEEPCOOL PF500D','files/unit_1.jpg','500W 80 PLUS certified 100-240V/AT
 
 INSERT INTO products (name, image, description, category_id, quantity, price)
 VALUES ('MB LGA1700 GIGABYTE B760M GAMING','files/motherboard_1.jpg','DDR4,2xDDR4,10xUSB,6xSATAIII,mATX,PCIe16x, PCIe1x,VGA HDMI,DP',8,11,10989),
-       ('MSI PRO B660M-B','files/motherboard_1.jpg','DDR4, LGA1700, Intel B660, 2xDDR4, 4xSATA3, 1xPCI-E 3.0x16,1xPCI-E 3.0x1,Sound8Ch, 4SATA+1M2, RAID, 4USB3.2+2USB2.0,1xVGA, 1xHDMI, mATX',8,12,11583);
+       ('MSI PRO B660M-B','files/motherboard_2.jpg','DDR4, LGA1700, Intel B660, 2xDDR4, 4xSATA3, 1xPCI-E 3.0x16,1xPCI-E 3.0x1,Sound8Ch, 4SATA+1M2, RAID, 4USB3.2+2USB2.0,1xVGA, 1xHDMI, mATX',8,12,11583);
 

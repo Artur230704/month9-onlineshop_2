@@ -1,7 +1,6 @@
 body {
-    background-image: url("https://img.freepik.com/premium-vector/circuit-technology-background-with-hi-tech-digital-data-connection-system-computer-electronic-design_29971-948.jpg");
+    background: linear-gradient(to top, red, blue, blueviolet, black);
 }
-
 
 .navbar {
     margin-bottom: 30px;
@@ -20,6 +19,11 @@ h1 {
 .card {
     border: none;
     transition: transform .2s;
+}
+
+.my-card-body {
+    background: linear-gradient(to bottom, darkblue, blue, #007bff, lightblue);
+    color: white;
 }
 
 .card:hover {

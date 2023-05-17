@@ -42,12 +42,12 @@ function createProductCard(product) {
     newElem.innerHTML = `
         <div class="card mb-4">
             <img src="${product.image}" class="card-img-center img-fluid" alt="...">
-            <div class="card-body">
+            <div class="card-body my-card-body">
                 <h5 class="card-title">${product.name}</h5>
                 <p class="card-text">Category: ${product.category}</p>
                 <p class="card-text">Description: ${product.description}</p>
                 <p class="card-text">Price: ${product.price} сом</p>
-                <a href="#" class="btn btn-primary">Add to cart</a>
+                <a href="#" class="btn btn-secondary">Add to cart</a>
             </div>
         </div>`;
 

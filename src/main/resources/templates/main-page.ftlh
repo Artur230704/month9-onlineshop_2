@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
     <div class="container">
         <a class="navbar-brand" href="#">Computer shop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +48,11 @@
                     <input class="form-control search-input me-2 ms-2" type="search" placeholder="Search" aria-label="Search" name="search" id="search-term">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </div>
+            </form>
+
+            <form action="/logout" method="post">
+                <input type="hidden" name="${(_csrf.parameterName)!'_csrf'}" value="${(_csrf.token)!'--no-token--'}" />
+                <button type="submit" class="btn btn-primary">Logout</button>
             </form>
         </div>
     </div>

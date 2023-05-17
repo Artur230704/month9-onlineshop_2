@@ -29,13 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .failureUrl("/login?error=true");
 
-        http.logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .clearAuthentication(true)
-                .invalidateHttpSession(true);
-
         http.authorizeRequests()
+                .antMatchers("/profile").authenticated()
                 .antMatchers("/api/orders/add").authenticated()
                 .antMatchers("/api/carts/items/**").authenticated();
 
