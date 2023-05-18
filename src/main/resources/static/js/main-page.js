@@ -1,26 +1,21 @@
 let page = 0;
 let totalPages;
 let currentPage = document.querySelector('.current-page');
-
-const form = document.querySelector('#product-search-form');
-let searchInput = document.querySelector('#search-term');
-let categorySelect = document.querySelector('#category');
-let searchType = document.querySelector('#search-type');
-
-
-let productsEndPoint = "/api/products";
-
 let nextButton = document.querySelector('.next');
 let prevButton = document.querySelector('.prev');
 
+let productsEndPoint = "/api/products";
+let currentEndPoint;
+
+
 displayProducts(productsEndPoint);
-let currentEndPoint = productsEndPoint;
+currentEndPoint = productsEndPoint;
 
 function displayProducts(url){
-    fetch(`${url}?page=${page}`)
+    fetch(url)
         .then(response => response.json())
         .then(page => {
-            document.querySelector('.products-block').innerHTML = '';
+            document.querySelector('.content').innerHTML = '';
             page.content.forEach(product => {
                 createProductCard(product);
             });
@@ -31,89 +26,117 @@ function displayProducts(url){
             currentPage.textContent = `Page ${page.number + 1} of ${totalPages}`;
         })
 }
+
+
+
 function createProductCard(product) {
     let newRow = document.createElement("div");
     newRow.classList.add("row");
     newRow.classList.add("mt-5");
 
     let newElem = document.createElement("div");
-    newElem.classList.add("col-md-6");
+    newElem.classList.add("col-md-12");
+
     newElem.innerHTML = `
-        <div class="card mb-4">
-            <img src="${product.image}" class="card-img-center img-fluid" alt="...">
-            <div class="card-body my-card-body">
-                <h5 class="card-title">${product.name}</h5>
-                <p class="card-text">Category: ${product.category}</p>
-                <p class="card-text">Description: ${product.description}</p>
-                <p class="card-text">Price: ${product.price} сом</p>
-                <a href="#" class="btn btn-secondary">Add to cart</a>
+        <div class="card-block">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="${product.image}" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">${product.name}</h5>
+                      <p class="card-text">Description: ${product.description}</p>
+                      <p class="card-text"><small class="text-body-secondary">Category: ${product.category}</small></p>
+                      <p class="card-text"><small class="text-body-secondary">Price: ${product.price} сом</small></p>
+                    </div>
+                  </div>
+                </div>
             </div>
-        </div>`;
+            <div class="card-btn ms-3 pt-5">
+                <a href="#" class="btn btn-primary">add to cart</a>
+            </div>
+        </div>
+    `
 
     newRow.appendChild(newElem);
 
-    let productsBlock = document.querySelector(".products-block");
-    let lastRow = productsBlock.querySelector(".row:last-of-type");
-
-    if (lastRow && lastRow.childElementCount < 2) {
-        lastRow.appendChild(newElem);
-    } else {
-        productsBlock.appendChild(newRow);
-    }
+    let productsBlock = document.querySelector(".content");
+    productsBlock.appendChild(newRow);
 }
-
-searchType.addEventListener('change', (event) => {
-    const searchType = event.target.value;
-
-    if (searchType === 'category') {
-        searchInput.hidden = true;
-        categorySelect.hidden = false;
-    } else {
-        searchInput.hidden = false;
-        categorySelect.hidden = true;
-    }
-});
-
-form.addEventListener('submit', event => {
-    event.preventDefault();
-    const searchType = document.getElementById('search-type').value;
-    page = 0;
-
-    if (searchType === 'category') {
-        const category = document.getElementById('category').value;
-        currentEndPoint = `/api/products/category/${category}`;
-    } else if(searchType === 'all') {
-        currentEndPoint = productsEndPoint;
-    } else {
-        const searchTerm = document.getElementById('search-term').value;
-        currentEndPoint = `/api/products/${searchType}/${searchTerm}`;
-    }
-    displayProducts(currentEndPoint);
-});
 
 
 nextButton.addEventListener('click', () => {
     if (page < totalPages - 1) {
         page++;
-        displayProducts(currentEndPoint);
+        console.log('current: ' + currentEndPoint)
+        let url;
+        if (currentEndPoint === productsEndPoint){
+            url = `${currentEndPoint}?page=${page}`;
+        } else {
+            url = `${currentEndPoint}&page=${page}`
+        }
+        console.log('url: ' + currentEndPoint)
+        displayProducts(url);
     }
 });
 
 prevButton.addEventListener('click', () => {
     if (page > 0) {
         page--;
-        displayProducts(currentEndPoint);
+        let url;
+        if (currentEndPoint === productsEndPoint){
+            url = `${currentEndPoint}?page=${page}`;
+        } else {
+            url = `${currentEndPoint}&page=${page}`
+        }
+        displayProducts(url);
     }
 });
 
 
-function openNav() {
-    document.querySelector(".sidebar").style.width = "250px";
-    document.querySelector(".main-block").style.marginLeft = "250px";
-}
 
-function closeNav() {
-    document.querySelector(".sidebar").style.width = "0";
-    document.querySelector(".main-block").style.marginLeft = "0";
-}
+let searchForm = document.querySelector('.search-form');
 
+searchForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    let min = document.querySelector('input[name="min"]').value;
+    let max = document.querySelector('input[name="max"]').value;
+    let name = document.querySelector('input[name="name"]').value;
+    let description = document.querySelector('input[name="description"]').value;
+
+    let categoryForm = document.querySelector('.form-select');
+    let category = categoryForm.value;
+
+    console.log('category ' + category);
+    console.log('min ' + min)
+    console.log('max ' + max)
+    console.log('name ' + name)
+    console.log('description ' + description)
+
+    let searchParams = new URLSearchParams();
+
+    if (category !== 'All') {
+        searchParams.append('category', category);
+    }
+    if (min) {
+        searchParams.append('min', min);
+    }
+    if (max) {
+        searchParams.append('max', max);
+    }
+    if (name) {
+        searchParams.append('name', name);
+    }
+    if (description) {
+        searchParams.append('description', description);
+    }
+
+    let url = '/api/products/search?' + searchParams.toString();
+    currentEndPoint = url;
+    page = 0;
+
+    displayProducts(url);
+});

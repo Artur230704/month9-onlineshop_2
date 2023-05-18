@@ -4,12 +4,12 @@ VALUES ('Artur','artur230704@gmail.com','$2a$10$RO5xvriIQFUvtB3S2zUToukB5EZgJqNA
        ('Petya','petya@gmail.com','$2a$10$.ktoPXEyU6xgUKE2UeOnKu3e3Yj5Zorbpc3gVu624eiNig0XCGtmu','customer',true);
 
 INSERT INTO orders (customer_id, address, bill, date)
-VALUES (1,'bishkek',22770,'2023-07-23 09:30:15.123456'),
-       (2,'bishkek',22800.03,'2023-05-07 15:31:15.123456'),
-       (3,'bishkek',23562,'2023-01-22 11:29:20.123456'),
-       (1,'bishkek',6255,'2023-07-23 11:31:15.123456'),
-       (2,'bishkek',1233,'2023-02-21 18:31:15.123456'),
-       (3,'bishkek',3915,'2023-07-23 11:31:15.123456');
+VALUES (1,'bishkek',72790,'2023-07-23 09:30:15.123456'),
+       (2,'bishkek',54590,'2023-05-07 15:31:15.123456'),
+       (3,'bishkek',78190,'2023-01-22 11:29:20.123456'),
+       (1,'bishkek',90990,'2023-07-23 11:31:15.123456'),
+       (2,'bishkek',90990,'2023-02-21 18:31:15.123456'),
+       (3,'bishkek',89990,'2023-07-23 11:31:15.123456');
 
 INSERT INTO reviews (customer_id, text, product_id, date)
 VALUES (1,'cool monitor',1,'2023-10-17 15:31:15.123456'),
@@ -37,4 +37,4 @@ VALUES (1,1,1),
        (3,3,1),
        (4,4,1),
        (5,7,1),
-       (6,17,1);
+       (6,15,1);

@@ -27,33 +27,16 @@ public class ProductService {
                 .map(ProductMapper::fromProduct);
     }
 
-    public Page<ProductDTO> findAllByName(String productName, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return productRepository.findAllByNameContainingIgnoreCase(productName, pageable)
-                .map(ProductMapper::fromProduct);
-    }
 
-    public Page<ProductDTO> findAllByCategoryName(String categoryName, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return productRepository.findByCategoryName(categoryName, pageable)
-                .map(ProductMapper::fromProduct);
-    }
-
-    public Page<ProductDTO> findAllByPrice(double price, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return productRepository.findAllByPriceLessThan(price, pageable)
-                .map(ProductMapper::fromProduct);
-    }
-
-    public Page<ProductDTO> findAllByDescription(String description, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return productRepository.findAllByDescriptionContainingIgnoreCase(description, pageable)
-                .map(ProductMapper::fromProduct);
-    }
 
     public List<ReviewDTO> findAllComments(String productName){
         return reviewRepository.findReviewsByProductName(productName).stream()
                 .map(ReviewMapper::fromReview)
                 .collect(Collectors.toList());
+    }
+
+    public Page<ProductDTO> findByParameters(String category, Double min, Double max, String name, String description, Pageable pageable){
+        return productRepository.searchProducts(category,min,max,name,description,pageable)
+                .map(ProductMapper::fromProduct);
     }
 }
