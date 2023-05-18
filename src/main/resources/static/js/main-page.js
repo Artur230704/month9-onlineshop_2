@@ -1,5 +1,4 @@
 let page = 0;
-// let defaultSearchSize = 2;
 let totalPages;
 let currentPage = document.querySelector('.current-page');
 
@@ -106,4 +105,15 @@ prevButton.addEventListener('click', () => {
         displayProducts(currentEndPoint);
     }
 });
+
+
+function openNav() {
+    document.querySelector(".sidebar").style.width = "250px";
+    document.querySelector(".main-block").style.marginLeft = "250px";
+}
+
+function closeNav() {
+    document.querySelector(".sidebar").style.width = "0";
+    document.querySelector(".main-block").style.marginLeft = "0";
+}
 
