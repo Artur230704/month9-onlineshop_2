@@ -1,7 +1,6 @@
 package com.example.mont9onlineshop.services;
 
 import com.example.mont9onlineshop.DTO.shoppingCart.ShoppingCartDTO;
-import com.example.mont9onlineshop.DTO.shoppingCart.ShoppingCartItemDTO;
 import com.example.mont9onlineshop.entities.Product;
 import com.example.mont9onlineshop.entities.ShoppingCart;
 import com.example.mont9onlineshop.entities.ShoppingCartItem;
@@ -24,8 +23,8 @@ public class ShoppingCartService {
         return ShoppingCartMapper.fromShoppingCart(shoppingCartRepository.findCartByCustomer(email).get());
     }
 
-    public boolean addItemToCart(ShoppingCartItemDTO itemDTO, String email) {
-        Product product = productRepository.findById(itemDTO.getProductId())
+    public boolean addItemToCart(Long productId, String email) {
+        Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product ID"));
 
         ShoppingCart shoppingCart = shoppingCartRepository.findCartByCustomer(email)
@@ -45,8 +44,8 @@ public class ShoppingCartService {
         shoppingCartItemRepository.save(shoppingCartItem);
         return true;
     }
-    public boolean removeItemFromCart(ShoppingCartItemDTO itemDTO, String email) {
-        Product product = productRepository.findById(itemDTO.getProductId())
+    public boolean removeItemFromCart(Long productId, String email) {
+        Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product ID"));
 
         ShoppingCart shoppingCart = shoppingCartRepository.findCartByCustomer(email)

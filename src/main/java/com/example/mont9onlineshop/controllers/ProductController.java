@@ -44,7 +44,7 @@ public class ProductController {
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String description,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size
+            @RequestParam(defaultValue = "4") int size
     ) {
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<ProductDTO> result = productService.findByParameters(category, min, max, name, description, pageRequest);

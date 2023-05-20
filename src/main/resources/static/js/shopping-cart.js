@@ -7,10 +7,8 @@ function displayCart(url) {
         .then(response => response.json())
         .then(data => {
             const cart = data;
-            console.log(cart);
             document.querySelector('.cart').innerHTML = '';
             cart.products.forEach(product => {
-                console.log(product)
                 createCartItem(product);
             });
         })
@@ -42,13 +40,44 @@ function createCartItem(product) {
                 </div>
             </div>
             <div class="card-btn pt-5">
-                <a href="#" class="btn btn-primary">remove from cart</a>
+                <a href="#" class="btn btn-primary remove-btn">remove from cart</a>
             </div>
         </div>
     `
+
+    let removeFromCartButton = elem.querySelector(".remove-btn");
+    removeFromCartHandler(removeFromCartButton, product.id)
 
     row.appendChild(elem);
 
     let cartBlock = document.querySelector(".cart");
     cartBlock.appendChild(row);
 }
+
+
+function removeFromCartHandler(btn, productId){
+    btn.addEventListener("click", () => {
+        let csrfToken = document.querySelector("meta[name='_csrf']").getAttribute("content");
+        let csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
+
+        fetch('/api/carts/items/remove', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                [csrfHeader]: csrfToken
+            },
+            body: JSON.stringify({
+                productId: productId
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                displayCart(cartEndPoint);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    });
+}
+

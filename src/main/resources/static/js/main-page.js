@@ -55,17 +55,44 @@ function createProductCard(product) {
                 </div>
             </div>
             <div class="card-btn ms-3 pt-5">
-                <a href="#" class="btn btn-primary">add to cart</a>
+                <a href="#" class="btn btn-primary send-btn">add to cart</a>
             </div>
         </div>
     `
 
     newRow.appendChild(newElem);
 
+    let addToCartButton = newElem.querySelector(".send-btn");
+    addToCartHandler(addToCartButton, product.id)
+
     let productsBlock = document.querySelector(".content");
     productsBlock.appendChild(newRow);
 }
 
+function addToCartHandler(btn, productId){
+    btn.addEventListener("click", () => {
+        let csrfToken = document.querySelector("meta[name='_csrf']").getAttribute("content");
+        let csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
+
+        fetch('/api/carts/items/add', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                [csrfHeader]: csrfToken
+            },
+            body: JSON.stringify({
+                productId: productId
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                window.location.href = "/login";
+            });
+    });
+}
 
 nextButton.addEventListener('click', () => {
     if (page < totalPages - 1) {
