@@ -13,8 +13,11 @@ public class ShoppingCartMapper {
                 .id(cart.getId())
                 .customer(cart.getCustomer().getUsername())
                 .email(cart.getCustomer().getEmail())
+//                .products(cart.getShopCartItems().stream()
+//                        .map(item -> ProductMapper.fromProduct(item.getProduct()))
+//                        .collect(Collectors.toList()))
                 .products(cart.getShopCartItems().stream()
-                        .map(item -> ProductMapper.fromProduct(item.getProduct()))
+                        .map(ShoppingCartItemMapper::fromItem)
                         .collect(Collectors.toList()))
                 .build();
     }

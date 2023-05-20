@@ -3,9 +3,11 @@ package com.example.mont9onlineshop.services;
 import com.example.mont9onlineshop.DTO.customer.CustomerDTO;
 import com.example.mont9onlineshop.DTO.customer.CustomerRegisterDTO;
 import com.example.mont9onlineshop.entities.Customer;
+import com.example.mont9onlineshop.entities.ShoppingCart;
 import com.example.mont9onlineshop.exceptions.CustomerAlreadyRegisteredException;
 import com.example.mont9onlineshop.mappers.CustomerMapper;
 import com.example.mont9onlineshop.repositories.CustomerRepository;
+import com.example.mont9onlineshop.repositories.ShoppingCartRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CustomerService implements UserDetailsService {
     private CustomerRepository customerRepository;
+    private ShoppingCartRepository shoppingCartRepository;
 
     private PasswordEncoder encoder;
 
@@ -44,6 +47,12 @@ public class CustomerService implements UserDetailsService {
                 .build();
 
         customerRepository.save(customer);
+
+        ShoppingCart shoppingCart = ShoppingCart.builder()
+                .customer(customer)
+                .build();
+
+        shoppingCartRepository.save(shoppingCart);
         return true;
     }
 

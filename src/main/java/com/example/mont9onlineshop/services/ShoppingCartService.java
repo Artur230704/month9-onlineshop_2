@@ -39,6 +39,7 @@ public class ShoppingCartService {
         ShoppingCartItem shoppingCartItem = ShoppingCartItem.builder()
                 .product(product)
                 .shoppingCart(shoppingCart)
+                .quantity(1)
                 .build();
 
         shoppingCartItemRepository.save(shoppingCartItem);

@@ -46,7 +46,8 @@ CREATE TABLE shopping_carts (
 CREATE TABLE shopping_cart_items (
     id bigserial PRIMARY KEY NOT NULL,
     shopping_cart_id bigint REFERENCES shopping_carts(id),
-    product_id bigint REFERENCES products(id)
+    product_id bigint REFERENCES products(id),
+    quantity integer
 );
 
 CREATE TABLE order_product (

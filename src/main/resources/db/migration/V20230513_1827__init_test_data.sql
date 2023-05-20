@@ -22,14 +22,14 @@ VALUES (1),
        (2),
        (3);
 
-INSERT INTO shopping_cart_items(shopping_cart_id, product_id)
-VALUES (1,1),
-       (1,3),
-       (2,2),
-       (3,3),
-       (1,7),
-       (2,8),
-       (2,11);
+INSERT INTO shopping_cart_items(shopping_cart_id, product_id, quantity)
+VALUES (1,1,1),
+       (1,3,1),
+       (2,2,1),
+       (3,3,1),
+       (1,7,1),
+       (2,8,1),
+       (2,11,1);
 
 INSERT INTO order_product (order_id, product_id, quantity)
 VALUES (1,1,1),

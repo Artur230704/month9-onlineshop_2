@@ -32,6 +32,7 @@
             <input type="password" placeholder="password" name="password"  value="${(dto.password)!''}" required/>
             <button>Register</button>
             <p class="message">Already registered? <a href="/login">Sign In</a></p>
+            <p class="message"><a href="/">Go back to the home page</a></p>
         </form>
     </div>
 

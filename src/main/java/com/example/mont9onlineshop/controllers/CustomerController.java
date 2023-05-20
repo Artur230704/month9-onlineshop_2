@@ -65,9 +65,10 @@ public class CustomerController {
 
 
     @GetMapping("/profile")
-    public ResponseEntity<String> getProfile(Model model, Principal principal) {
-        String response = "Hello " + principal.getName();
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public String getProfile(Model model, Principal principal) {
+        String message = "Welcome " + principal.getName();
+        model.addAttribute("message", message);
+        return "profile";
     }
 
     @GetMapping(value = "/api/customers")

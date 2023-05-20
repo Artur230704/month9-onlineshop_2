@@ -8,13 +8,13 @@ function displayCart(url) {
         .then(data => {
             const cart = data;
             document.querySelector('.cart').innerHTML = '';
-            cart.products.forEach(product => {
-                createCartItem(product);
+            cart.products.forEach(item => {
+                createCartItem(item);
             });
         })
 }
 
-function createCartItem(product) {
+function createCartItem(item) {
     let row = document.createElement("div");
     row.classList.add("row");
     row.classList.add("mt-5");
@@ -27,14 +27,15 @@ function createCartItem(product) {
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                   <div class="col-md-4">
-                    <img src="${product.image}" class="img-fluid rounded-start" alt="...">
+                    <img src="${item.product.image}" class="img-fluid rounded-start" alt="...">
                   </div>
                   <div class="col-md-8">
                     <div class="card-body">
-                      <h5 class="card-title">${product.name}</h5>
-                      <p class="card-text">Description: ${product.description}</p>
-                      <p class="card-text"><small class="text-body-secondary">Category: ${product.category}</small></p>
-                      <p class="card-text"><small class="text-body-secondary">Price: ${product.price} сом</small></p>
+                      <h5 class="card-title">${item.product.name}</h5>
+                      <p class="card-text">Description: ${item.product.description}</p>
+                      <p class="card-text"><small class="text-body-secondary">Category: ${item.product.category}</small></p>
+                      <p class="card-text"><small class="text-body-secondary">Price: ${item.product.price} сом</small></p>
+                      <p class="card-text"><small class="text-body-secondary">Quantity: ${item.quantity}</small></p>
                     </div>
                   </div>
                 </div>
@@ -46,7 +47,7 @@ function createCartItem(product) {
     `
 
     let removeFromCartButton = elem.querySelector(".remove-btn");
-    removeFromCartHandler(removeFromCartButton, product.id)
+    removeFromCartHandler(removeFromCartButton, item.product.id)
 
     row.appendChild(elem);
 
