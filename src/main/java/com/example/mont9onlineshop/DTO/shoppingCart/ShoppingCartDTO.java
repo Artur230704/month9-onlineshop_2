@@ -1,5 +1,6 @@
 package com.example.mont9onlineshop.DTO.shoppingCart;
 
+import com.example.mont9onlineshop.DTO.product.ProductDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,5 +16,5 @@ public class ShoppingCartDTO {
     private Long id;
     private String customer;
     private String email;
-    private List<String> product;
+    private List<ProductDTO> products;
 }

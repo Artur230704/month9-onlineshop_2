@@ -12,9 +12,6 @@ import com.example.mont9onlineshop.repositories.ShoppingCartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 public class ShoppingCartService {
@@ -23,10 +20,8 @@ public class ShoppingCartService {
     private final ProductRepository productRepository;
 
 
-    public List<ShoppingCartDTO> findShoppingCart(String email){
-        return shoppingCartRepository.findCartByCustomer(email).stream()
-                .map(ShoppingCartMapper::fromShoppingCart)
-                .collect(Collectors.toList());
+    public ShoppingCartDTO findShoppingCart(String email){
+        return ShoppingCartMapper.fromShoppingCart(shoppingCartRepository.findCartByCustomer(email).get());
     }
 
     public boolean addItemToCart(ShoppingCartItemDTO itemDTO, String email) {

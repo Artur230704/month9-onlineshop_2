@@ -31,8 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/profile").authenticated()
+                .antMatchers("/cart").authenticated()
                 .antMatchers("/api/orders/add").authenticated()
-                .antMatchers("/api/carts/items/**").authenticated();
+                .antMatchers("/api/carts/**").authenticated();
 
         http.authorizeRequests()
                 .anyRequest()

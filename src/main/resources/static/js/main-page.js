@@ -70,14 +70,12 @@ function createProductCard(product) {
 nextButton.addEventListener('click', () => {
     if (page < totalPages - 1) {
         page++;
-        console.log('current: ' + currentEndPoint)
         let url;
         if (currentEndPoint === productsEndPoint){
             url = `${currentEndPoint}?page=${page}`;
         } else {
             url = `${currentEndPoint}&page=${page}`
         }
-        console.log('url: ' + currentEndPoint)
         displayProducts(url);
     }
 });
