@@ -40,7 +40,17 @@
                     <div class="cart"></div>
                 </div>
             </div>
-            <div class="col-5"></div>
+            <div class="col-5">
+                <form id="orderForm" method="post" action="/api/orders/add">
+                    <h2 class="mt-5">Order form</h2>
+                    <div class="mb-3">
+                        <label for="addressInput" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="addressInput" name="address" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Place an order</button>
+                    <p class="response mt-5"></p>
+                </form>
+            </div>
         </div>
     </div>
 
