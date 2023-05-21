@@ -135,12 +135,6 @@ searchForm.addEventListener('submit', function(event) {
     let categoryForm = document.querySelector('.form-select');
     let category = categoryForm.value;
 
-    console.log('category ' + category);
-    console.log('min ' + min)
-    console.log('max ' + max)
-    console.log('name ' + name)
-    console.log('description ' + description)
-
     let searchParams = new URLSearchParams();
 
     if (category !== 'All') {

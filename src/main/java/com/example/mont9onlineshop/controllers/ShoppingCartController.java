@@ -27,7 +27,8 @@ public class ShoppingCartController {
     @GetMapping("/api/carts")
     public ResponseEntity<ShoppingCartDTO> findShoppingCart(Principal principal){
         String email = principal.getName();
-        return new ResponseEntity<>(shoppingCartService.findShoppingCart(email), HttpStatus.OK);
+        ShoppingCartDTO shoppingCart = shoppingCartService.findShoppingCart(email);
+        return new ResponseEntity<>(shoppingCart, HttpStatus.OK);
     }
 
     @PostMapping("/api/carts/items/add")
@@ -43,5 +44,21 @@ public class ShoppingCartController {
         String email = principal.getName();
         Long productId = Long.valueOf(requestData.get("productId").toString());
         return new ResponseEntity<>(shoppingCartService.removeItemFromCart(productId, email), HttpStatus.OK);
+    }
+
+    @PostMapping("/api/carts/items/increase")
+    public ResponseEntity<Void> increaseQuantity(@Valid @RequestBody Map<String, Object> requestData, Principal principal) {
+        String email = principal.getName();
+        Long productId = Long.valueOf(requestData.get("productId").toString());
+        shoppingCartService.increaseQuantity(productId, email);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/api/carts/items/reduce")
+    public ResponseEntity<Void> reduceQuantity(@Valid @RequestBody Map<String, Object> requestData, Principal principal) {
+        String email = principal.getName();
+        Long productId = Long.valueOf(requestData.get("productId").toString());
+        shoppingCartService.reduceQuantity(productId, email);
+        return ResponseEntity.ok().build();
     }
 }

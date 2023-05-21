@@ -17,3 +17,8 @@ body {
     background: linear-gradient(to bottom, darkblue, blue, #007bff, lightblue);
     color: white;
 }
+
+.small-btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+}

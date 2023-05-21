@@ -1,4 +1,6 @@
 let cartEndPoint = '/api/carts'
+let csrfToken = document.querySelector("meta[name='_csrf']").getAttribute("content");
+let csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
 
 displayCart(cartEndPoint)
 
@@ -24,7 +26,7 @@ function createCartItem(item) {
 
     elem.innerHTML = `
         <div class="card-block">
-            <div class="card mb-3" style="max-width: 540px;">
+            <div class="card mb-3" style="max-width: 650px;">
                 <div class="row g-0">
                   <div class="col-md-4">
                     <img src="${item.product.image}" class="img-fluid rounded-start" alt="...">
@@ -35,7 +37,12 @@ function createCartItem(item) {
                       <p class="card-text">Description: ${item.product.description}</p>
                       <p class="card-text"><small class="text-body-secondary">Category: ${item.product.category}</small></p>
                       <p class="card-text"><small class="text-body-secondary">Price: ${item.product.price} сом</small></p>
-                      <p class="card-text"><small class="text-body-secondary">Quantity: ${item.quantity}</small></p>
+                      <div class="quantity">
+                        <button class="quantity-btn minus-btn"><i class="bi bi-dash-square"></i></button>
+                        <input type="text" class="quantity-input" value="${item.quantity}">
+                        <input type="hidden" name="productId" value="${item.product.id}">
+                        <button type="submit" class="quantity-btn plus-btn"><i class="bi bi-plus"></i></button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -53,14 +60,15 @@ function createCartItem(item) {
 
     let cartBlock = document.querySelector(".cart");
     cartBlock.appendChild(row);
+
+    setupQuantityChangeHandlers(elem.querySelector('.quantity'), item);
+
 }
 
 
 function removeFromCartHandler(btn, productId){
-    btn.addEventListener("click", () => {
-        let csrfToken = document.querySelector("meta[name='_csrf']").getAttribute("content");
-        let csrfHeader = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
-
+    btn.addEventListener("click", (event) => {
+        event.preventDefault();
         fetch('/api/carts/items/remove', {
             method: 'POST',
             headers: {
@@ -73,12 +81,44 @@ function removeFromCartHandler(btn, productId){
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 displayCart(cartEndPoint);
             })
             .catch(error => {
                 console.error(error);
             });
     });
+}
+
+
+function setupQuantityChangeHandlers(elem, item) {
+    let minusBtn = elem.querySelector('.minus-btn');
+    let plusBtn = elem.querySelector('.plus-btn');
+
+    minusBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        changeProductQuantity('/api/carts/items/reduce', item.product.id);
+    });
+
+    plusBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        changeProductQuantity('/api/carts/items/increase', item.product.id);
+    });
+}
+
+function changeProductQuantity(url, productId) {
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            [csrfHeader]: csrfToken
+        },
+        body: JSON.stringify({
+            productId: productId
+        })
+    })
+        .then(() => displayCart(cartEndPoint))
+        .catch(error => {
+            console.error(error);
+        });
 }
 

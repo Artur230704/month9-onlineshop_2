@@ -24,11 +24,8 @@ public class ShoppingCartService {
     }
 
     public boolean addItemToCart(Long productId, String email) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid product ID"));
-
-        ShoppingCart shoppingCart = shoppingCartRepository.findCartByCustomer(email)
-                .orElseThrow(() -> new IllegalArgumentException("User's shopping cart not found"));
+        Product product = getProduct(productId);
+        ShoppingCart shoppingCart = getShoppingCart(email);
 
         boolean isProductInCart = shoppingCartItemRepository.existsByShoppingCartAndProduct(shoppingCart, product);
 
@@ -45,19 +42,48 @@ public class ShoppingCartService {
         shoppingCartItemRepository.save(shoppingCartItem);
         return true;
     }
+
     public boolean removeItemFromCart(Long productId, String email) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid product ID"));
-
-        ShoppingCart shoppingCart = shoppingCartRepository.findCartByCustomer(email)
-                .orElseThrow(() -> new IllegalArgumentException("User's shopping cart not found"));
-
-        ShoppingCartItem shoppingCartItem = shoppingCartItemRepository.findByShoppingCartAndProduct(shoppingCart, product)
-                .orElseThrow(() -> new IllegalArgumentException("Item not found in the shopping cart"));
+        Product product = getProduct(productId);
+        ShoppingCart shoppingCart = getShoppingCart(email);
+        ShoppingCartItem shoppingCartItem = getShoppingCartItem(shoppingCart, product);
 
         shoppingCartItemRepository.delete(shoppingCartItem);
         return true;
     }
 
+    public void increaseQuantity(Long productId, String email) {
+        Product product = getProduct(productId);
+        ShoppingCart shoppingCart = getShoppingCart(email);
+        ShoppingCartItem shoppingCartItem = getShoppingCartItem(shoppingCart, product);
 
+        shoppingCartItemRepository.increaseQuantity(shoppingCartItem);
+    }
+
+    public void reduceQuantity(Long productId, String email) {
+        Product product = getProduct(productId);
+        ShoppingCart shoppingCart = getShoppingCart(email);
+        ShoppingCartItem shoppingCartItem = getShoppingCartItem(shoppingCart, product);
+
+        if (shoppingCartItem.getQuantity() == 1) {
+            shoppingCartItemRepository.delete(shoppingCartItem);
+        } else {
+            shoppingCartItemRepository.reduceQuantity(shoppingCartItem);
+        }
+    }
+
+    private Product getProduct(Long productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid product ID"));
+    }
+
+    private ShoppingCart getShoppingCart(String email) {
+        return shoppingCartRepository.findCartByCustomer(email)
+                .orElseThrow(() -> new IllegalArgumentException("User's shopping cart not found"));
+    }
+
+    private ShoppingCartItem getShoppingCartItem(ShoppingCart shoppingCart, Product product) {
+        return shoppingCartItemRepository.findByShoppingCartAndProduct(shoppingCart, product)
+                .orElseThrow(() -> new IllegalArgumentException("Item not found in the shopping cart"));
+    }
 }
