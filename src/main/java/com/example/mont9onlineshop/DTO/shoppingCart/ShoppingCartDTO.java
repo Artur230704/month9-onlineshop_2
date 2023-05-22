@@ -11,10 +11,9 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-public class ShoppingCartDTO {
+public class ShoppingCartDTO  {
     private Long id;
     private String customer;
     private String email;
-//    private List<ProductDTO> products;
     private List<ShoppingCartItemDisplayDTO> products;
 }

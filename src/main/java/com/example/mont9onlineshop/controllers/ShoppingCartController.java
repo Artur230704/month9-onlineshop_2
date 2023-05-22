@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Map;
@@ -25,9 +27,12 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/api/carts")
-    public ResponseEntity<ShoppingCartDTO> findShoppingCart(Principal principal){
+    public ResponseEntity<ShoppingCartDTO> findShoppingCart(Principal principal, HttpServletRequest request){
         String email = principal.getName();
         ShoppingCartDTO shoppingCart = shoppingCartService.findShoppingCart(email);
+        HttpSession session = request.getSession();
+        session.setAttribute(email, shoppingCart);
+        System.out.println("shopping cart in session" + " = " + session.getAttribute(email));
         return new ResponseEntity<>(shoppingCart, HttpStatus.OK);
     }
 
