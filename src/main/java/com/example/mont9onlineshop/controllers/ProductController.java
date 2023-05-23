@@ -1,6 +1,7 @@
 package com.example.mont9onlineshop.controllers;
 
 import com.example.mont9onlineshop.DTO.product.ProductDTO;
+import com.example.mont9onlineshop.DTO.review.ReviewAddingDTO;
 import com.example.mont9onlineshop.DTO.review.ReviewDTO;
 import com.example.mont9onlineshop.services.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -9,10 +10,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -31,11 +32,6 @@ public class ProductController {
         return new ResponseEntity<>(productService.findAll(page,size), HttpStatus.OK);
     }
 
-    @GetMapping("/api/products/review/{productName}")
-    public ResponseEntity<List<ReviewDTO>> findAllComments(@PathVariable String productName){
-        return new ResponseEntity<>(productService.findAllComments(productName),HttpStatus.OK);
-    }
-
     @GetMapping("/api/products/search")
     public ResponseEntity<Page<ProductDTO>> searchProducts(
             @RequestParam(required = false) String category,
@@ -50,5 +46,16 @@ public class ProductController {
         Page<ProductDTO> result = productService.findByParameters(category, min, max, name, description, pageRequest);
 
         return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
+    @GetMapping("/api/products/review/{productName}")
+    public ResponseEntity<List<ReviewDTO>> findAllComments(@PathVariable String productName){
+        return new ResponseEntity<>(productService.findAllComments(productName),HttpStatus.OK);
+    }
+
+    @PostMapping("/api/products/reviews/add")
+    public ResponseEntity<Boolean> addReview(Principal principal,@Valid @RequestBody ReviewAddingDTO reviewAddingDTO){
+        String email = principal.getName();
+        return new ResponseEntity<>(productService.addReview(email, reviewAddingDTO), HttpStatus.OK);
     }
 }

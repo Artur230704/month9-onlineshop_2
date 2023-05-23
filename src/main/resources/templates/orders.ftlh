@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
     <meta name="_csrf" content="${_csrf.token}" />
     <meta name="_csrf_header" content="${_csrf.headerName}" />
+    <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
@@ -53,7 +53,7 @@
                     <td>
                         <ul>
                             <#list order.products as product, quantity>
-                                <li>${product} <a href="#"> add review</a></li>
+                                <li>${product} <a href="#" onclick="showReviewForm(event, '${product}')">add review</a></li>
                             </#list>
                         </ul>
                     </td>
@@ -72,11 +72,24 @@
             </tbody>
         </table>
 
-        <div class="review-block">
-
+        <div class="review-block" id="reviewBlock">
+            <form id="reviewForm" style="display: none;">
+                <h3 class="mb-3">Add Review</h3>
+                <div class="form-group">
+                    <input type="hidden" name="product" id="reviewProduct">
+                </div>
+                <div class="form-group">
+                    <label for="reviewText">Review Text</label>
+                    <textarea class="form-control" name="text" id="reviewText" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-secondary">Add</button>
+            </form>
         </div>
+
+        <div id="responseMessage" style="display: none;"></div>
     </div>
 </div>
+<script src="/js/orders.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
