@@ -1,5 +1,6 @@
 package com.example.mont9onlineshop.services;
 
+import com.example.mont9onlineshop.DTO.customer.ChangePasswordDTO;
 import com.example.mont9onlineshop.DTO.customer.CustomerDTO;
 import com.example.mont9onlineshop.DTO.customer.CustomerRegisterDTO;
 import com.example.mont9onlineshop.entities.Customer;
@@ -23,7 +24,6 @@ import java.util.stream.Collectors;
 public class CustomerService implements UserDetailsService {
     private CustomerRepository customerRepository;
     private ShoppingCartRepository shoppingCartRepository;
-
     private PasswordEncoder encoder;
 
     @Override
@@ -75,14 +75,27 @@ public class CustomerService implements UserDetailsService {
     }
 
     public CustomerDTO findByEmail(String email){
-        Customer customer = customerRepository.findByEmail(email).get();
-        if (customer == null) {
-            throw new UsernameNotFoundException("User not found");
-        }
+        Customer customer = customerRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Not found"));
         return CustomerMapper.fromCustomer(customer);
     }
 
     public Boolean existsByEmail(String email){
         return customerRepository.existsByEmail(email);
+    }
+
+    public String changePassword(ChangePasswordDTO changePasswordDTO, String email) {
+        Customer customer = customerRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Not found"));
+
+        if (!encoder.matches(changePasswordDTO.getCurrentPassword(), customer.getPassword())) {
+            return "Failed to change password. The current password is entered incorrectly";
+        }
+
+        if (changePasswordDTO.getCurrentPassword().equals(changePasswordDTO.getNewPassword())) {
+            return "Failed to change password. The current password and the new password are the same.";
+        }
+
+        customer.setPassword(encoder.encode(changePasswordDTO.getNewPassword()));
+        customerRepository.save(customer);
+        return "The password has been changed successfully.";
     }
 }

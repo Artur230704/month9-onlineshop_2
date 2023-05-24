@@ -22,7 +22,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-lg-0 fs-5">
                     <li class="nav-item">
-                        <a href="/cart" class="nav-link active">shopping cart</a>
+                        <a href="/cart" class="nav-link active">cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/orders" class="nav-link active">orders</a>
                     </li>
                     <li class="nav-item">
                         <a href="/profile" class="nav-link active">profile</a>

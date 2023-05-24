@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(to top, red, blueviolet, black);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    color: white;
+}
+
+#passwordChangeResult {
+    color: red;
+}
+
+#changePasswordForm {
+    margin-top: 20px;
+}
+
+#changePasswordForm .form-label {
+    font-weight: bold;
+}
+
+#changePasswordForm .form-control {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    width: 100%;
+}
+
+#changePasswordForm button[type="submit"] {
+    margin-top: 10px;
+}

@@ -1,5 +1,6 @@
 package com.example.mont9onlineshop.controllers;
 
+import com.example.mont9onlineshop.DTO.customer.ChangePasswordDTO;
 import com.example.mont9onlineshop.DTO.customer.CustomerDTO;
 import com.example.mont9onlineshop.DTO.customer.CustomerRegisterDTO;
 import com.example.mont9onlineshop.services.CustomerService;
@@ -12,10 +13,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,7 +61,6 @@ public class CustomerController {
         return "redirect:/login";
     }
 
-
     @GetMapping("/profile")
     public String getProfile(Model model, Principal principal) {
         String message = "Welcome " + principal.getName();
@@ -90,5 +87,19 @@ public class CustomerController {
     @GetMapping(value = "/api/customers/existence/{email}")
     public ResponseEntity<Boolean> checkExistence(@PathVariable String email){
         return new ResponseEntity<>(customerService.existsByEmail(email), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/api/customers/password-management/change")
+    public ResponseEntity<String> changePassword(@Valid @RequestBody ChangePasswordDTO changePasswordDTO,
+                                                  Principal principal,
+                                                  Model model,
+                                                  BindingResult validationResult){
+        if (validationResult.hasFieldErrors()) {
+            model.addAttribute("errors", validationResult.getFieldErrors());
+        }
+
+        String email = principal.getName();
+        String response = customerService.changePassword(changePasswordDTO, email);
+        return new ResponseEntity<>(response,HttpStatus.OK);
     }
 }

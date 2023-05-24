@@ -22,7 +22,7 @@
                         <a href="/" class="nav-link active">home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/cart" class="nav-link active">shopping cart</a>
+                        <a href="/cart" class="nav-link active">cart</a>
                     </li>
                     <li class="nav-item">
                         <a href="/profile" class="nav-link active">profile</a>

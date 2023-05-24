@@ -25,6 +25,9 @@
                             <a href="/" class="nav-link active">home</a>
                         </li>
                         <li class="nav-item">
+                            <a href="/orders" class="nav-link active">orders</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="/profile" class="nav-link active">profile</a>
                         </li>
                     </ul>
