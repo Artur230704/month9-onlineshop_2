@@ -3,6 +3,7 @@ package com.example.mont9onlineshop.services;
 import com.example.mont9onlineshop.DTO.customer.ChangePasswordDTO;
 import com.example.mont9onlineshop.DTO.customer.CustomerDTO;
 import com.example.mont9onlineshop.DTO.customer.CustomerRegisterDTO;
+import com.example.mont9onlineshop.DTO.customer.RecoverPasswordDTO;
 import com.example.mont9onlineshop.entities.Customer;
 import com.example.mont9onlineshop.entities.ShoppingCart;
 import com.example.mont9onlineshop.exceptions.CustomerAlreadyRegisteredException;
@@ -10,6 +11,7 @@ import com.example.mont9onlineshop.mappers.CustomerMapper;
 import com.example.mont9onlineshop.repositories.CustomerRepository;
 import com.example.mont9onlineshop.repositories.ShoppingCartRepository;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -97,5 +99,18 @@ public class CustomerService implements UserDetailsService {
         customer.setPassword(encoder.encode(changePasswordDTO.getNewPassword()));
         customerRepository.save(customer);
         return "The password has been changed successfully.";
+    }
+
+    public String recoverPassword(RecoverPasswordDTO recoverPasswordDTO) {
+        Customer customer = customerRepository.findByEmail(recoverPasswordDTO.getEmail())
+                .orElseThrow(() -> new UsernameNotFoundException("Customer not found"));
+
+        int passwordLength = 10;
+
+        String randomPassword = RandomStringUtils.randomAlphabetic(passwordLength).toLowerCase();
+        customer.setPassword(encoder.encode(randomPassword));
+        customerRepository.save(customer);
+
+        return randomPassword;
     }
 }

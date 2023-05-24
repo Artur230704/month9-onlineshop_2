@@ -3,12 +3,14 @@ package com.example.mont9onlineshop.controllers;
 import com.example.mont9onlineshop.DTO.customer.ChangePasswordDTO;
 import com.example.mont9onlineshop.DTO.customer.CustomerDTO;
 import com.example.mont9onlineshop.DTO.customer.CustomerRegisterDTO;
+import com.example.mont9onlineshop.DTO.customer.RecoverPasswordDTO;
 import com.example.mont9onlineshop.services.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -101,5 +103,30 @@ public class CustomerController {
         String email = principal.getName();
         String response = customerService.changePassword(changePasswordDTO, email);
         return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    @GetMapping("/password-recover")
+    public String getRecoverPage(Model model){
+        model.addAttribute("dto", new RecoverPasswordDTO());
+        return "password-recover";
+    }
+
+    @PostMapping(value = "/api/customers/password-management/recover")
+    public String recoverPassword(@Valid RecoverPasswordDTO recoverPasswordDTO,
+                                                  BindingResult validationResult,
+                                                  RedirectAttributes attributes){
+        if (validationResult.hasFieldErrors()) {
+            attributes.addFlashAttribute("errors", validationResult.getFieldErrors());
+            return "redirect:/password-recover";
+        }
+
+        try {
+            String password = customerService.recoverPassword(recoverPasswordDTO);
+            attributes.addFlashAttribute("password", password);
+            return "redirect:/login";
+        } catch (UsernameNotFoundException e) {
+            attributes.addFlashAttribute("customerError", e.getMessage());
+            return "redirect:/password-recover";
+        }
     }
 }

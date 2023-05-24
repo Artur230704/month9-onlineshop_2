@@ -16,12 +16,19 @@
             </#if>
         </div>
 
+        <div>
+            <#if password?? >
+                <p style="color:white">Your new password: ${password}</p>
+            </#if>
+        </div>
+
         <form class="login-form" method="POST" action="/login">
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <input type="text" placeholder="email" name="username" value=""/>
             <input type="text" placeholder="password" name="password" value=""/>
             <button>login</button>
             <p class="message">Not registered? <a href="/signup">Create an account</a></p>
+            <p class="message">Forgot your password? <a href="/password-recover">Recover password</a></p>
             <p class="message"><a href="/">Go back to the home page</a></p>
         </form>
     </div>
