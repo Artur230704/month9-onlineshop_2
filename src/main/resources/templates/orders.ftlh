@@ -7,6 +7,7 @@
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/orders.css">
 </head>
 <body>
 <div class="header">
@@ -34,7 +35,7 @@
 </div>
 
 <div class="main-block">
-    <div class="container">
+    <div class="container mt-5">
         <table class="table table-responsive">
             <thead>
             <tr>

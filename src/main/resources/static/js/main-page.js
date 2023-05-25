@@ -57,6 +57,9 @@ function createProductCard(product) {
             <div class="card-btn ms-3 pt-5">
                 <a href="#" class="btn btn-primary send-btn">add to cart</a>
             </div>
+            <div class="card-btn ms-3 pt-5">
+                <a href="/products/review/${product.name}" class="btn btn-primary send-btn">view reviews</a>
+            </div>
         </div>
     `
 

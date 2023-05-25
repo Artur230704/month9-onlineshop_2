@@ -18,7 +18,7 @@
 
         <div>
             <#if password?? >
-                <p style="color:white">Your new password: ${password}</p>
+                <p style="color:black">Your new password: ${password}</p>
             </#if>
         </div>
 

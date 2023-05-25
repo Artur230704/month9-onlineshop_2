@@ -28,13 +28,16 @@ public class ProductService {
     private final ReviewRepository reviewRepository;
     private final CustomerRepository customerRepository;
 
+    public ProductDTO findByName(String productName){
+        return ProductMapper.fromProduct(productRepository.findByName(productName).get());
+    }
+
+
     public Page<ProductDTO> findAll(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return productRepository.findAll(pageable)
                 .map(ProductMapper::fromProduct);
     }
-
-
 
     public List<ReviewDTO> findAllComments(String productName){
         return reviewRepository.findReviewsByProductName(productName).stream()
