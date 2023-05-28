@@ -18,16 +18,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-lg-0 fs-5">
                     <li class="nav-item">
-                        <a href="/" class="nav-link active">home</a>
+                        <a href="/" class="nav-link active">${bundle["home_nav"]}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/orders" class="nav-link active">orders</a>
+                        <a href="/orders" class="nav-link active">${bundle["orders_nav"]}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/cart" class="nav-link active">cart</a>
+                        <a href="/cart" class="nav-link active">${bundle["cart_nav"]}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/profile" class="nav-link active">profile</a>
+                        <a href="/profile" class="nav-link active">${bundle["profile_nav"]}</a>
                     </li>
                 </ul>
             </div>
@@ -46,20 +46,20 @@
                 <div class="card-body">
                     <h5 class="card-title">${product.name}</h5>
                     <p class="card-text">Description: ${product.description}</p>
-                    <p class="card-text"><small class="text-body-secondary">Category: ${product.category}</small></p>
-                    <p class="card-text"><small class="text-body-secondary">Price: ${product.price} сом</small></p>
+                    <p class="card-text"><small class="text-body-secondary">${bundle["category"]}: ${product.category}</small></p>
+                    <p class="card-text"><small class="text-body-secondary">${bundle["price"]}: ${product.price} сом</small></p>
                 </div>
             </div>
         </div>
     </div>
 
-    <h3 class="mt-5">reviews: </h3>
+    <h3 class="mt-5">${bundle["reviews"]} </h3>
     <div class="comments-block">
         <ul class="list-group">
             <#list reviews as review>
                 <li class="list-group-item">${review.username}
                     <br>
-                    text: ${review.text}
+                    ${bundle["text"]}: ${review.text}
                 </li>
             </#list>
         </ul>

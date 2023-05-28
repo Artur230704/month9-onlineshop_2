@@ -14,14 +14,17 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ResourceBundle;
 
 @Controller
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+    private final ResourceBundle bundle;
 
     @GetMapping("/")
-    public String getMainPage(){
+    public String getMainPage(Model model){
+        model.addAttribute("bundle", bundle);
         return "main-page";
     }
 
@@ -49,6 +52,7 @@ public class ProductController {
 
     @GetMapping("/products/review/{productName}")
     public String findAllComments(@PathVariable String productName, Model model){
+        model.addAttribute("bundle", bundle);
         model.addAttribute("product", productService.findByName(productName));
         model.addAttribute("reviews", productService.findAllComments(productName));
         return "reviews-page";

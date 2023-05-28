@@ -6,6 +6,8 @@ import com.example.mont9onlineshop.DTO.customer.CustomerRegisterDTO;
 import com.example.mont9onlineshop.DTO.customer.RecoverPasswordDTO;
 import com.example.mont9onlineshop.services.CustomerService;
 import lombok.RequiredArgsConstructor;
+import net.bytebuddy.asm.Advice;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,19 +27,26 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @Controller
 @RequiredArgsConstructor
 public class CustomerController {
     private final CustomerService customerService;
+    private final ResourceBundle bundle;
+    private final LocaleResolver localeResolver;
+
     @GetMapping("/login")
     public String getLoginPage(@RequestParam(required = false, defaultValue = "false") Boolean error, Model model) {
+        model.addAttribute("bundle", bundle);
         model.addAttribute("error", error);
         return "login";
     }
 
     @GetMapping("/signup")
     public String getRegistrationPage(Model model){
+        model.addAttribute("bundle", bundle);
         model.addAttribute("dto", new CustomerRegisterDTO());
         return "registration";
     }
@@ -64,12 +75,11 @@ public class CustomerController {
     }
 
     @GetMapping("/profile")
-    public String getProfile(Model model, Principal principal) {
-        String message = "Welcome " + principal.getName();
-        model.addAttribute("message", message);
+    public String getProfile(Model model,
+                             @RequestParam(name = "lang", required = false) String language) {
+        model.addAttribute("bundle", bundle);
         return "profile";
     }
-
     @GetMapping(value = "/api/customers")
     public ResponseEntity<List<CustomerDTO>> findAll(){
         return new ResponseEntity<>(customerService.findAll(), HttpStatus.OK);
@@ -107,6 +117,7 @@ public class CustomerController {
 
     @GetMapping("/password-recover")
     public String getRecoverPage(Model model){
+        model.addAttribute("bundle", bundle);
         model.addAttribute("dto", new RecoverPasswordDTO());
         return "password-recover";
     }

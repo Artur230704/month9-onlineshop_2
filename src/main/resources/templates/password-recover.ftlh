@@ -13,7 +13,7 @@
         <form class="login-form" method="POST" action="/api/customers/password-management/recover">
             <div>
                 <#if errors?? >
-                    <p style="color:red">Incorrect input data !</p>
+                    <p style="color:red">${bundle["input_error"]}</p>
                     <#list errors as fieldError>
                         <p>${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
                     </#list>
@@ -24,9 +24,9 @@
             </div>
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <input type="text" placeholder="email address" name="email"  value="${(dto.email)!''}" required/>
-            <button type="">Recover</button>
-            <p class="message">Not registered? <a href="/signup">Create an account</a></p>
-            <p class="message"><a href="/">Go back to the home page</a></p>
+            <button type="submit">${bundle["recover"]}</button>
+            <p class="message">${bundle["not_registered"]} <a href="/signup">${bundle["create_account_link"]}</a></p>
+            <p class="message"><a href="/">${bundle["bacK_to_home_page_link"]}</a></p>
         </form>
     </div>
 </div>

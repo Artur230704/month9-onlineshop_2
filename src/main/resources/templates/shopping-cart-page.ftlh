@@ -22,13 +22,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-lg-0 fs-5">
                         <li class="nav-item">
-                            <a href="/" class="nav-link active">home</a>
+                            <a href="/" class="nav-link active">${bundle["home_nav"]}</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/orders" class="nav-link active">orders</a>
+                            <a href="/orders" class="nav-link active">${bundle["orders_nav"]}</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/profile" class="nav-link active">profile</a>
+                            <a href="/profile" class="nav-link active">${bundle["profile_nav"]}</a>
                         </li>
                     </ul>
                 </div>
@@ -45,12 +45,12 @@
             </div>
             <div class="col-5">
                 <form id="orderForm" method="post" action="/api/orders/add">
-                    <h2 class="mt-5">Order form</h2>
+                    <h2 class="mt-5">${bundle["order_form"]}</h2>
                     <div class="mb-3">
-                        <label for="addressInput" class="form-label">Address</label>
+                        <label for="addressInput" class="form-label">${bundle["address"]}</label>
                         <input type="text" class="form-control" id="addressInput" name="address" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Place an order</button>
+                    <button type="submit" class="btn btn-primary">${bundle["place_an_order"]}</button>
                     <p class="response mt-5"></p>
                 </form>
             </div>

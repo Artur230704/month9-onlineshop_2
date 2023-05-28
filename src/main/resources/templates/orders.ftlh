@@ -20,13 +20,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-lg-0 fs-5">
                     <li class="nav-item">
-                        <a href="/" class="nav-link active">home</a>
+                        <a href="/" class="nav-link active">${bundle["home_nav"]}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/cart" class="nav-link active">cart</a>
+                        <a href="/cart" class="nav-link active">${bundle["cart_nav"]}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/profile" class="nav-link active">profile</a>
+                        <a href="/profile" class="nav-link active">${bundle["profile_nav"]}</a>
                     </li>
                 </ul>
             </div>
@@ -39,12 +39,12 @@
         <table class="table table-responsive">
             <thead>
             <tr>
-                <th>Email</th>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Address</th>
-                <th>Bill</th>
-                <th>Date</th>
+                <th>${bundle["email"]}</th>
+                <th>${bundle["product"]}</th>
+                <th>${bundle["quantity"]}</th>
+                <th>${bundle["address"]}</th>
+                <th>${bundle["bill"]}</th>
+                <th>${bundle["date"]}</th>
             </tr>
             </thead>
             <tbody>
@@ -54,7 +54,7 @@
                     <td>
                         <ul>
                             <#list order.products as product, quantity>
-                                <li>${product} <a href="#" onclick="showReviewForm(event, '${product}')">add review</a></li>
+                                <li>${product} <a href="#" onclick="showReviewForm(event, '${product}')">${bundle["add_review"]}</a></li>
                             </#list>
                         </ul>
                     </td>
@@ -75,7 +75,7 @@
 
         <div class="review-block" id="reviewBlock">
             <form id="reviewForm" style="display: none;">
-                <h3 class="mb-3">Add Review</h3>
+                <h3 class="mb-3">${bundle["add_review"]}</h3>
                 <div class="form-group">
                     <input type="hidden" name="product" id="reviewProduct">
                 </div>
@@ -83,7 +83,7 @@
                     <label for="reviewText">Review Text</label>
                     <textarea class="form-control" name="text" id="reviewText" rows="3" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-secondary">Add</button>
+                <button type="submit" class="btn btn-secondary">${bundle["add_review"]}</button>
             </form>
         </div>
 

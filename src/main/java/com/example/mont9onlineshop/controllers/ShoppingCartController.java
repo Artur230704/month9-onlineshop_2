@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,14 +16,17 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 @Controller
 @RequiredArgsConstructor
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
+    private final ResourceBundle bundle;
 
     @GetMapping("/cart")
-    public String getShoppingCartPage(){
+    public String getShoppingCartPage(Model model){
+        model.addAttribute("bundle", bundle);
         return "shopping-cart-page";
     }
 

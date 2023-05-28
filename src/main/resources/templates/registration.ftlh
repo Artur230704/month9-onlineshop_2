@@ -18,7 +18,7 @@
                     <p class="error-message" style="color:red">${errorMessage}</p>
                 </#if>
                 <#if errors?? >
-                    <p style="color:red">Incorrect input data !</p>
+                    <p style="color:red">${bundle["input_error"]}</p>
                     <#list errors as fieldError>
                         <p>${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
                     </#list>
@@ -30,9 +30,9 @@
             <input type="text" placeholder="email address" name="email"  value="${(dto.email)!''}" required/>
             <div class="error-message"></div>
             <input type="password" placeholder="password" name="password"  value="${(dto.password)!''}" required/>
-            <button>Register</button>
-            <p class="message">Already registered? <a href="/login">Sign In</a></p>
-            <p class="message"><a href="/">Go back to the home page</a></p>
+            <button>${bundle["register"]}</button>
+            <p class="message">${bundle["already_registered"]} <a href="/login">${bundle["login_link"]}</a></p>
+            <p class="message"><a href="/">${bundle["bacK_to_home_page_link"]}</a></p>
         </form>
     </div>
 

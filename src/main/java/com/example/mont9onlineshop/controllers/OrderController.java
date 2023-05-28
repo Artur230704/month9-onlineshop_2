@@ -13,15 +13,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ResourceBundle;
 
 @Controller
 @RequiredArgsConstructor
 public class OrderController {
     private final OrderService orderService;
+    private final ResourceBundle bundle;
 
     @GetMapping("/orders")
     public String getOrdersPage(Model model, Principal principal){
         String email = principal.getName();
+        model.addAttribute("bundle", bundle);
         model.addAttribute("orders",orderService.findCustomerOrders(email));
         return "orders";
     }

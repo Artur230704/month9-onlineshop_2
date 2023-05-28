@@ -22,13 +22,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-lg-0 fs-5">
                     <li class="nav-item">
-                        <a href="/" class="nav-link active">home</a>
+                        <a href="/" class="nav-link active">${bundle["home_nav"]}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/orders" class="nav-link active">orders</a>
+                        <a href="/orders" class="nav-link active">${bundle["orders_nav"]}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/cart" class="nav-link active">cart</a>
+                        <a href="/cart" class="nav-link active">${bundle["cart_nav"]}</a>
                     </li>
                 </ul>
             </div>
@@ -38,11 +38,11 @@
 
 <div class="main-block mt-5">
     <div class="container">
-        <h1>${message}</h1>
-        <button class="btn btn-secondary mt-5" id="changePasswordBtn">Change Password</button>
+        <h1>${bundle["greeting"]}</h1>
+        <button class="btn btn-secondary mt-5" id="changePasswordBtn">${bundle["change_password"]}</button>
 
         <#if errors?? >
-            <p style="color:red">Incorrect input data !</p>
+            <p style="color:red">${bundle["input_error"]}</p>
             <#list errors as fieldError>
                 <p>${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
             </#list>
@@ -51,14 +51,14 @@
         <form id="changePasswordForm" class="d-none">
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <div class="mb-3">
-                <label for="currentPassword" class="form-label">Current Password:</label>
+                <label for="currentPassword" class="form-label">${bundle["current_password"]}</label>
                 <input type="password" id="currentPassword" name="currentPassword" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label for="newPassword" class="form-label">New Password:</label>
+                <label for="newPassword" class="form-label">${bundle["new_password"]}</label>
                 <input type="password" id="newPassword" name="newPassword" class="form-control" required minlength="4" maxlength="15">
             </div>
-            <button type="submit" class="btn btn-secondary">Change</button>
+            <button type="submit" class="btn btn-secondary">${bundle["change_password"]}</button>
         </form>
     </div>
 </div>

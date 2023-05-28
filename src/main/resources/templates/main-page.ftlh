@@ -22,13 +22,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-lg-0 fs-5">
                     <li class="nav-item">
-                        <a href="/cart" class="nav-link active">cart</a>
+                        <a href="/cart" class="nav-link active">${bundle["cart_nav"]}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/orders" class="nav-link active">orders</a>
+                        <a href="/orders" class="nav-link active">${bundle["orders_nav"]}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/profile" class="nav-link active">profile</a>
+                        <a href="/profile" class="nav-link active">${bundle["profile_nav"]}</a>
                     </li>
                 </ul>
             </div>
@@ -41,10 +41,10 @@
     <div class="row">
         <div class="col-2 sidebar">
             <form class="search-form ps-5 pt-5">
-                <h2 class="mb-5">Search</h2>
+                <h2 class="mb-5">${bundle["search"]}</h2>
                 <h5>Brands</h5>
                 <select class="form-select" aria-label="Default select example">
-                    <option value="All" selected>All</option>
+                    <option value="All" selected>${bundle["search_all"]}</option>
                     <option value="Acer">Acer</option>
                     <option value="Lenovo">Lenovo</option>
                     <option value="Asus">Asus</option>
@@ -53,29 +53,29 @@
                 </select>
                 <div class="price mb-5 mt-5">
                     <div class="input-group">
-                        <span class="input-group-text">Price: </span>
+                        <span class="input-group-text">${bundle["price"]}: </span>
                         <input type="text" aria-label="First name" class="form-control" placeholder="from" name="min">
                         <input type="text" aria-label="Last name" class="form-control" placeholder="to" name="max">
                     </div>
                 </div>
 
                 <div class="input-group flex-nowrap mb-5 ">
-                    <span class="input-group-text" id="addon-wrapping">Name</span>
+                    <span class="input-group-text" id="addon-wrapping">${bundle["name"]}:</span>
                     <input type="text" class="form-control" placeholder="Product name" aria-label="Username" aria-describedby="addon-wrapping" name="name">
                 </div>
 
                 <div class="input-group flex-nowrap mb-5 ">
-                    <span class="input-group-text" id="addon-wrapping">Description</span>
+                    <span class="input-group-text" id="addon-wrapping">${bundle["description"]}:</span>
                     <input type="text" class="form-control" placeholder="Description" aria-label="Username" aria-describedby="addon-wrapping" name="description">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="submit" class="btn btn-primary">${bundle["search"]}</button>
             </form>
 
             <div class="auth-block">
                 <form action="/logout" method="post" class="auth-btn p-4">
                     <input type="hidden" name="${(_csrf.parameterName)!'_csrf'}" value="${(_csrf.token)!'--no-token--'}" />
-                    <button type="submit" class="btn btn-primary">Logout</button>
+                    <button type="submit" class="btn btn-primary">${bundle["logout"]}</button>
                 </form>
             </div>
         </div>
@@ -89,9 +89,9 @@
 
                 <div class="pagination mb-5">
                     <ul>
-                        <li><a href="#" class="prev btn-warning">Prev</a></li>
+                        <li><a href="#" class="prev btn-warning">${bundle["previous_page"]}</a></li>
                         <li><a href="#" class="current-page active">0</a></li>
-                        <li><a href="#" class="next btn-warning">Next</a></li>
+                        <li><a href="#" class="next btn-warning">${bundle["next_page"]}</a></li>
                     </ul>
                 </div>
             </div>

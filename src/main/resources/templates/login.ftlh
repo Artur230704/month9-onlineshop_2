@@ -12,13 +12,13 @@
     <div class="form">
         <div>
             <#if error!false >
-                <p style="color:red">Invalid username or password !</p>
+                <p style="color:red">${bundle["invalid_credentials"]}</p>
             </#if>
         </div>
 
         <div>
             <#if password?? >
-                <p style="color:black">Your new password: ${password}</p>
+                <p style="color:black">${bundle["recovered_password"]}: ${password}</p>
             </#if>
         </div>
 
@@ -27,9 +27,9 @@
             <input type="text" placeholder="email" name="username" value=""/>
             <input type="text" placeholder="password" name="password" value=""/>
             <button>login</button>
-            <p class="message">Not registered? <a href="/signup">Create an account</a></p>
-            <p class="message">Forgot your password? <a href="/password-recover">Recover password</a></p>
-            <p class="message"><a href="/">Go back to the home page</a></p>
+            <p class="message">${bundle["not_registered"]} <a href="/signup">${bundle["create_account_link"]}</a></p>
+            <p class="message">${bundle["forgot_password"]} <a href="/password-recover">${bundle["recover_password_link"]}</a></p>
+            <p class="message"><a href="/">${bundle["bacK_to_home_page_link"]}</a></p>
         </form>
     </div>
 </div>
